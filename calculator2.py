@@ -1,63 +1,64 @@
-from tkinter import *
-root=Tk()
-root.title("GUI Simple Calculator")
+import math
 
-entry=Entry(root,width=45,borderwidth=4)
-entry.grid(row=0,column=0,columnspan=4)
+def add():
+    a,b=map(float,input("Enter first and second value: ").split())
+    return (a+b)
 
-def click(x):
-    current=entry.get()
-    entry.delete(0,END)
-    entry.insert(END,str(current)+str(x))
+def subtract():    
+    a,b=map(float,input("Enter first and second value: ").split())    
+    return(a-b)
 
-def clear():
-    entry.delete(0,END)
+def multiply():
+    a,b=map(float,input("Enter first and second value: ").split())
+    return (a*b)
 
-def sign(x):
-    current=entry.get()
-    if x=='.' and '.' in current:
-        return
-    entry.insert(END,x)
+def divide():
+    a,b=map(float,input("Enter first and second value: ").split())
+    try:
+        return (a/b)
+    except ZeroDivisionError:
+        return "can't divide by zero"
+    
+def expo():
+    a=float(input("Enter the value: "))
+    return math.exp(a)
 
-def evaluate():
-    to_evaluate=entry.get()
-    entry.delete(0,END)
-    entry.insert(END,eval(to_evaluate))
+def trigo():
+    a=float(input("Enter the value: "))
+    print(f"sine ({a}) value is: ",math.sin(math.radians(a)))
+    print(f"cosine ({a}) value is: ",math.cos(math.radians(a)))
+    print(f"tangent ({a}) value is: ",math.tan(math.radians(a)))
 
-button_1=Button(root,text='1',padx=40,pady=20,command=lambda: click(1))
-button_2=Button(root,text='2',padx=40,pady=20,command=lambda: click(2))
-button_3=Button(root,text='3',padx=40,pady=20,command=lambda: click(3))
-button_4=Button(root,text='4',padx=40,pady=20,command=lambda: click(4))
-button_5=Button(root,text='5',padx=40,pady=20,command=lambda: click(5))
-button_6=Button(root,text='6',padx=40,pady=20,command=lambda: click(6))
-button_7=Button(root,text='7',padx=40,pady=20,command=lambda: click(7))
-button_8=Button(root,text='8',padx=40,pady=20,command=lambda: click(8))
-button_9=Button(root,text='9',padx=40,pady=20,command=lambda: click(9))
-button_0=Button(root,text='0',padx=40,pady=20,command=lambda: click(0))
-button_multiply=Button(root,text="*",padx=40,pady=20,command=lambda:sign('*'))
-button_subtract=Button(root,text="-",padx=40,pady=20,command=lambda:sign('-'))
-button_add=Button(root,text="+",padx=40,pady=52,command=lambda:sign('+'))
-button_divide=Button(root,text="/",padx=40,pady=20,command=lambda:sign('/'))
-button_clear=Button(root,text="clear",padx=78,pady=20,command=lambda: clear())
-button_equals=Button(root,text=" = ",padx=83,pady=20,command=evaluate)
-button_dot=Button(root,text=" .",padx=40,pady=20,command=lambda:sign('.'))
+def eval_expr():
+    a=input("Enter the expression to solve: ")
+    try:
+        return eval(a)
+    except Exception as e:
+        return f"Error occured: {e}"
 
-button_1.grid(row=4,column=0)
-button_2.grid(row=4,column=1)
-button_3.grid(row=4,column=2)
-button_4.grid(row=3,column=0)
-button_5.grid(row=3,column=1)
-button_6.grid(row=3,column=2)
-button_7.grid(row=2,column=0)
-button_8.grid(row=2,column=1)
-button_9.grid(row=2,column=2)
-button_0.grid(row=5,column=0)
-button_multiply.grid(row=3,column=4)
-button_subtract.grid(row=4,column=4)
-button_add.grid(row=5,column=4,rowspan=2)
-button_divide.grid(row=2,column=4)
-button_clear.grid(row=5,column=1,columnspan=2)
-button_equals.grid(row=6,column=1,columnspan=2)
-button_dot.grid(row=6,column=0)
 
-root.mainloop()
+user_choice=0
+
+while(user_choice==0):
+    try:
+        print("1. Addition\n2. Subtraction\n3. Multiplication\n4. Division\n5. Exponential\n6. Trigonometric\n7. Parentheses")
+        user_input=int(input("Enter your choice: "))
+        if user_input==1:
+            print(add())
+        elif user_input==2:
+            print(subtract())
+        elif user_input==3:
+            print(multiply())
+        elif user_input==4:
+            print(divide())
+        elif user_input==5:
+            print(expo())
+        elif user_input==6:
+            trigo()
+        elif user_input==7:
+            print(eval_expr())
+        else:
+            print("Enter valid choice")
+        user_choice=int(input("Enter 0 to continue calculation, -1 to stop: "))
+    except Exception as e:
+        print(e)
