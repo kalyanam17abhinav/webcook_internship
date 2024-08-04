@@ -14,6 +14,9 @@ def clear():
     entry.delete(0,END)
 
 def sign(x):
+    current=entry.get()
+    if x=='.' and '.' in current:
+        return
     entry.insert(END,x)
 
 def evaluate():
