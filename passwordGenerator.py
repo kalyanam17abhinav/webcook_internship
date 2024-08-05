@@ -33,9 +33,9 @@ while length>0:
     if(punctuation=='yes'):
         generatedPassword+=random.choice(list(string.punctuation))
         length -= 1
-
-if not generatedPassword:
-    print("No character types selected")
+    if(upperCase!='yes' and lowerCase!='yes' and digits!='yes' and punctuation!='yes'):
+        print("No character types selected")
+        exit()
 
 # print(generatedPassword)
 password=""
